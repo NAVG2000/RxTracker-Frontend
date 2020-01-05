@@ -1,9 +1,14 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = {
-    entry: './src/main.jsx',
+    mode: "production",
+    entry: './src/main.tsx',
+    resolve: {
+        extensions: [".ts", ".tsx", ".js", ".jsx"]
+    },
     output: {
         filename: 'main-[contentHash].js',
         path: path.join(__dirname, '/dist')
@@ -11,18 +16,24 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.(js|jsx)$/,
+                test: /\.(ts|tsx)$/,
                 exclude: /node_modules/,
-                loader: 'babel-loader',
+                use: 'ts-loader',
             },
+            {
+                test: /\.css$/,
+                use: [
+                    MiniCssExtractPlugin.loader,
+                    "css-loader"
+                ]
+            }
         ],
     },
-    mode: "production",
     plugins: [
         new HtmlWebpackPlugin({
-            template: "./src/index.html",
-            hash: true
+            template: "./src/index.html"
         }),
-        new CleanWebpackPlugin()
+        new CleanWebpackPlugin(),
+        new MiniCssExtractPlugin({ filename: "[name]-[contentHash].css" })
     ]
 };
