@@ -12,12 +12,12 @@ input[type=button], input[type=submit]{
     cursor: pointer;
   }
 
-input[type=select]{
-    width: 100%;
-    padding: 12px 20px;
-    margin: 8px 0;
+.formSelector{
+    width: 70%;
+    padding: 15px 10px;
+    margin: 0 auto;
     display: inline-block;
-    border: 1px solid #ccc;
+    border: 1px solid rgb(177, 67, 67);
     border-radius: 4px;
     box-sizing: border-box;
 }
@@ -39,9 +39,9 @@ input[type=select]{
 
 #chartFormContainer{
     width: 40%;
-    margin:auto;
     display:inline-block;
     background-color: rgb(199, 199, 199);
+    align-items: center;
 }
 
 #chartContainer{

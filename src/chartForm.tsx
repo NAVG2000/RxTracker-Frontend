@@ -39,8 +39,11 @@ class ChartForm extends React.Component<CFProps, CFState> {
     }
 
     handleSubmit(e) {
-        alert(this.state.drugName + this.state.chartType)
         e.preventDefault();
+        postData('http://ec2-3-208-23-163.compute-1.amazonaws.com/prediction')
+            .then((data) => {
+                console.log(data);
+            });
     }
 
     render() {
@@ -51,38 +54,35 @@ class ChartForm extends React.Component<CFProps, CFState> {
                         handleChange={this.handleChange} options=
                         {[['vascepa', 'Vascepa'], ['drug1', 'Drug1']]} />
 
-                    <label htmlFor='chartType'>Chart Type</label>
-                    <select name='chartType' value={this.state.chartType} onChange={this.handleChange}>
-                        <option value="graph_normalizedTRx">Normalized Total Prescriptions</option>
-                        <option value="graph_normalizedNRx">Normalized New Prescriptions</option>
-                        <option value="graph_normalizedRRx">Normalized Refill Prescriptions</option>
-                    </select>
+                    <Selector name='chartType' label='Chart Type' value={this.state.chartType}
+                        handleChange={this.handleChange} options={[
+                            ['graph_normalizedTRx', 'Normalized Total Prescriptions'],
+                            ['graph_normalizedNRx', 'Normalized New Prescriptions'],
+                            ['graph_normalizedRRx', 'Normalized Refill Prescriptions']]} />
 
-                    <label htmlFor='numWeeks'>Number of Weeks</label>
-                    <select name='numWeeks' value={this.state.numWeeks} onChange={this.handleChange}>
-                        <option value="52">52</option>
-                        <option value="104">104</option>
-                        <option value="156">156</option>
-                    </select>
+                    <Selector name='numWeeks' label='Number of Weeks' value={this.state.numWeeks}
+                        handleChange={this.handleChange} options={[
+                            ['52', ' 52 weeks'],
+                            ['104', '104 weeks'],
+                            ['156', '156 weeks']]} />
 
-                    <label htmlFor='predictBool'>Show Prediction</label>
-                    <select name='predictBool' value={this.state.predictBool} onChange={this.handleChange}>
-                        <option value="true">Yes</option>
-                        <option value="false">No</option>
-                    </select>
+                    <Selector name='predictBool' label='Show Prediction' value={this.state.predictBool}
+                        handleChange={this.handleChange} options={[
+                            ['true', 'Yes'],
+                            ['false', 'No']]} />
 
-                    <label htmlFor='weeksToTrain'>Weeks to Train Prediction</label>
-                    <select name='weeksToTrain' value={this.state.weeksToTrain} onChange={this.handleChange}>
-                        <option value="156">156</option>
-                        <option value="208">208</option>
-                    </select>
+                    <Selector name='weeksToTrain' label='Weeks to Train Prediction'
+                        value={this.state.weeksToTrain} handleChange={this.handleChange} options={[
+                            ['156', '156 weeks'],
+                            ['208', '208 weeks']]} />
 
-                    <label htmlFor='dataSource'>Data Source</label>
-                    <select name='dataSource' value={this.state.dataSource} onChange={this.handleChange}>
-                        <option value="updated">Updated</option>
-                        <option value="raw">Raw</option>
-                    </select>
+                    <Selector name='dataSource' label='Data Source' value={this.state.dataSource}
+                        handleChange={this.handleChange} options={[
+                            ['updated', 'Updated'],
+                            ['raw', 'Raw']]} />
+
                     <input type="submit" value="Predict" />
+
                 </form>
             </div >
         )
@@ -90,3 +90,23 @@ class ChartForm extends React.Component<CFProps, CFState> {
 }
 
 export default ChartForm;
+// http://ec2-107-23-136-34.compute-1.amazonaws.com
+// Example POST method implementation:
+async function postData(url = 'http://ec2-3-208-23-163.compute-1.amazonaws.com/prediction', data = {
+    "drug": "vascepa",
+    "target": "Normalized_TRx",
+    "weeks": 156,
+    "predictBool": true,
+    "source": "updated",
+    "weeksToTrainOn": 156,
+    "weeksToPredict": 52
+}) {
+    const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    });
+    return await response.json();
+}

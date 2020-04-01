@@ -1,5 +1,6 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
+
 import "./main.css";
 import ChartForm from './chartForm';
 import Header from './header';
@@ -16,7 +17,6 @@ class App extends React.Component<AppProps, AppState> {
     constructor(props) {
         super(props);
 
-
     }
 
     render() {
@@ -27,8 +27,7 @@ class App extends React.Component<AppProps, AppState> {
     }
 }
 
-const element =
-    <App />
+const element = <App />;
 
 ReactDOM.render(
     element,
