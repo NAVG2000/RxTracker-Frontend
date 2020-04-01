@@ -40,7 +40,7 @@ class ChartForm extends React.Component<CFProps, CFState> {
 
     handleSubmit(e) {
         e.preventDefault();
-        postData('http://ec2-3-208-23-163.compute-1.amazonaws.com/prediction')
+        postData('http://18.210.125.45/prediction')
             .then((data) => {
                 console.log(data);
             });
@@ -92,7 +92,7 @@ class ChartForm extends React.Component<CFProps, CFState> {
 export default ChartForm;
 // http://ec2-107-23-136-34.compute-1.amazonaws.com
 // Example POST method implementation:
-async function postData(url = 'http://ec2-3-208-23-163.compute-1.amazonaws.com/prediction', data = {
+async function postData(url = 'http://18.210.125.45/prediction', data = {
     "drug": "vascepa",
     "target": "Normalized_TRx",
     "weeks": 156,
