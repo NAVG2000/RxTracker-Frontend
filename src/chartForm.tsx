@@ -3,6 +3,27 @@ import * as ReactDOM from 'react-dom';
 
 import Selector from './formSelectorComponent';
 
+
+async function postData(url = 'http://18.210.125.45/prediction', data = {
+    "drug": "vascepa",
+    "target": "Normalized_TRx",
+    "weeks": 156,
+    "predictBool": true,
+    "source": "updated",
+    "weeksToTrainOn": 156,
+    "weeksToPredict": 52
+}) {
+    const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    });
+    return await response.json();
+}
+
+
 interface CFProps {
 
 }
@@ -90,23 +111,3 @@ class ChartForm extends React.Component<CFProps, CFState> {
 }
 
 export default ChartForm;
-// http://ec2-107-23-136-34.compute-1.amazonaws.com
-// Example POST method implementation:
-async function postData(url = 'http://18.210.125.45/prediction', data = {
-    "drug": "vascepa",
-    "target": "Normalized_TRx",
-    "weeks": 156,
-    "predictBool": true,
-    "source": "updated",
-    "weeksToTrainOn": 156,
-    "weeksToPredict": 52
-}) {
-    const response = await fetch(url, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-    });
-    return await response.json();
-}
