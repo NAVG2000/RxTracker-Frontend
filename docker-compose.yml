@@ -6,3 +6,11 @@ services:
         image: 980070691560.dkr.ecr.us-east-1.amazonaws.com/rx_tracker_frontend:latest
         expose:
             - "80"
+    
+    nginx:
+        build: ./nginx
+        image: 980070691560.dkr.ecr.us-east-1.amazonaws.com/rx_tracker_frontend_nginx:latest
+        ports:
+            - "80:80"
+        depends_on:
+            - app

@@ -3,27 +3,6 @@ import * as ReactDOM from 'react-dom';
 
 import Selector from './formSelectorComponent';
 
-
-async function postData(url = 'http://18.210.125.45/prediction', data = {
-    "drug": "vascepa",
-    "target": "Normalized_TRx",
-    "weeks": 156,
-    "predictBool": true,
-    "source": "updated",
-    "weeksToTrainOn": 156,
-    "weeksToPredict": 52
-}) {
-    const response = await fetch(url, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-    });
-    return await response.json();
-}
-
-
 interface CFProps {
 
 }
@@ -35,6 +14,8 @@ interface CFState {
     predictBool: string;
     weeksToTrain: string;
     dataSource: string;
+    showImage: string;
+    imageB64: string;
 }
 
 class ChartForm extends React.Component<CFProps, CFState> {
@@ -48,22 +29,49 @@ class ChartForm extends React.Component<CFProps, CFState> {
             numWeeks: '52',
             predictBool: 'true',
             weeksToTrain: '156',
-            dataSource: 'updated'
+            dataSource: 'updated',
+            showImage: "false",
+            imageB64: "",
         };
+    }
+
+    postData(url = 'http://107.23.136.34/chart', data = {
+        "drug": this.state.drugName,
+        "chartType": this.state.chartType,
+        "weeks": Number(this.state.numWeeks),
+        "predictBool": Boolean(this.state.predictBool),
+        "source": this.state.dataSource,
+        "weeksToTrainOn": Number(this.state.weeksToTrain)
+    }) {
+        return async () => {
+            console.log(this.state.drugName);
+            console.log(this.state.chartType);
+            console.log(this.state.numWeeks);
+            console.log(this.state.predictBool);
+            console.log(this.state.dataSource);
+            console.log(this.state.weeksToTrain);
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            });
+            return response.text();
+        }
     }
 
     handleChange(e: React.ChangeEvent<HTMLSelectElement>) {
         const name = e.target.name;
         const newVal = e.target.value;
         this.setState({ [name]: newVal } as Pick<CFState, keyof CFState>);
-
     }
 
     handleSubmit(e) {
         e.preventDefault();
-        postData('http://18.210.125.45/prediction')
+        this.postData()()
             .then((data) => {
-                console.log(data);
+                this.setState({ showImage: "true", imageB64: data })
             });
     }
 
@@ -105,6 +113,10 @@ class ChartForm extends React.Component<CFProps, CFState> {
                     <input type="submit" value="Predict" />
 
                 </form>
+                {this.state.showImage == "true"
+                    ? <img src={"data:image/png;base64, " + this.state.imageB64} />
+                    : null
+                }
             </div >
         )
     }
