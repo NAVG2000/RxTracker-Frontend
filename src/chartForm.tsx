@@ -44,12 +44,6 @@ class ChartForm extends React.Component<CFProps, CFState> {
         "weeksToTrainOn": Number(this.state.weeksToTrain)
     }) {
         return async () => {
-            console.log(this.state.drugName);
-            console.log(this.state.chartType);
-            console.log(this.state.numWeeks);
-            console.log(this.state.predictBool);
-            console.log(this.state.dataSource);
-            console.log(this.state.weeksToTrain);
             const response = await fetch(url, {
                 method: 'POST',
                 headers: {
