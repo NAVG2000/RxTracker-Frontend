@@ -17,4 +17,4 @@ COPY . /app
 WORKDIR /app
 RUN npm install webpack
 RUN npm run build
-CMD ["gunicorn", "--bind", "0.0.0.0:80", "app:app"]
+CMD ["gunicorn", "--bind", "0.0.0.0:8000", "app:app"]

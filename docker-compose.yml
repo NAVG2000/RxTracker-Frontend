@@ -1,12 +1,12 @@
-version: '3.7'
+version: "3.7"
 
-services: 
+services:
     app:
         build: .
         image: 980070691560.dkr.ecr.us-east-1.amazonaws.com/rx_tracker_frontend:latest
         expose:
-            - "80"
-    
+            - "8000"
+
     nginx:
         build: ./nginx
         image: 980070691560.dkr.ecr.us-east-1.amazonaws.com/rx_tracker_frontend_nginx:latest
