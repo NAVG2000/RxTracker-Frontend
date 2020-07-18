@@ -13,7 +13,7 @@ class Header extends React.Component<HearderProps, HeaderState>{
 
     render() {
         return <div id='headerContainer'>
-            Rx Tracker Test2
+            Rx Tracker Test3
         </div>
     }
 }
