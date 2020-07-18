@@ -22,3 +22,5 @@ phases:
             - echo Pushing to ECR ...
             - docker-compose push
             - echo Done with with Build Phase
+artifacts:
+    files: imagedefinitions.json
