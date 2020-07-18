@@ -10,6 +10,8 @@ def default():
 
 @app.route('/<path:filename>')
 def dist(filename):
+    if filename == 'healthCheck':
+        return Response(status=200)
     return send_from_directory('dist', filename)
 
 
