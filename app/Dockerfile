@@ -15,7 +15,7 @@ RUN curl -sL https://deb.nodesource.com/setup_12.x | bash -
 RUN apt-get install -y npm; 
 COPY . /app
 WORKDIR /app
-RUN npm install webpack
+RUN npm install 
 RUN npm run build
 EXPOSE 8000
 CMD ["gunicorn", "--bind", "0.0.0.0:8000", "app:app"]

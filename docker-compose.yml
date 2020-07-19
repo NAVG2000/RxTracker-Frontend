@@ -2,7 +2,7 @@ version: "3.0"
 
 services:
     app:
-        build: .
+        build: ./app
         image: 980070691560.dkr.ecr.us-east-1.amazonaws.com/rx_tracker_frontend:latest
         expose:
             - "8000"

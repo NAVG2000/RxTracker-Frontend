@@ -1,7 +1,7 @@
 {
-  "name": "rxtrackerwebsite",
+  "name": "rxtracker-frontend",
   "version": "1.0.0",
-  "description": "test website",
+  "description": "rxtracker website frontend",
   "main": "index.js",
   "dependencies": {
     "@types/react": "^16.9.17",
@@ -24,12 +24,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/NAVG2000/RxTrackerWebsite.git"
+    "url": "git+https://github.com/NAVG2000/RxTracker-Frontend.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/NAVG2000/RxTrackerWebsite/issues"
+    "url": "https://github.com/NAVG2000/RxTracker-Frontend/issues"
   },
-  "homepage": "https://github.com/NAVG2000/RxTrackerWebsite#readme"
+  "homepage": "https://github.com/NAVG2000/RxTracker-Frontend#readme"
 }
