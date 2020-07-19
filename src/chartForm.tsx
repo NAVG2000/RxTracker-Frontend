@@ -35,7 +35,7 @@ class ChartForm extends React.Component<CFProps, CFState> {
         };
     }
 
-    postData(url = 'http://internal-RxTrackerBackendLoadBalancer-1904974050.us-east-1.elb.amazonaws.com/chart', data = {
+    postData(url = 'http://RxTrackerBackendLoadBalancer-273293420.us-east-1.elb.amazonaws.com/chart', data = {
         "drug": this.state.drugName,
         "chartType": this.state.chartType,
         "weeks": Number(this.state.numWeeks),
