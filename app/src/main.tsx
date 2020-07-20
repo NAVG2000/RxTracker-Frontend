@@ -3,6 +3,7 @@ import * as ReactDOM from 'react-dom';
 
 import "./main.css";
 import ChartForm from './chartForm';
+import InteractiveForm from './interactiveForm'
 import Header from './header';
 
 interface AppProps {
@@ -22,6 +23,7 @@ class App extends React.Component<AppProps, AppState> {
     render() {
         return (<div id='AppContainer'>
             <Header />
+            <InteractiveForm />
             <ChartForm />
         </div>)
     }
