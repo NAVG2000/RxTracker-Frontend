@@ -1,5 +1,6 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
+import renderHTML from 'react-render-html';
 
 import Selector from './formSelectorComponent';
 
@@ -109,7 +110,7 @@ class InteractiveForm extends React.Component<CFProps, CFState> {
 
                 </form>
                 {this.state.showImage == "true"
-                    ? <div>this.state.imageData</div>
+                    ? renderHTML(this.state.imageData)
                     : null
                 }
             </div >
