@@ -1,6 +1,7 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import renderHTML from 'react-render-html';
+import ReactHtmlParser from 'react-html-parser';
 
 import Selector from './formSelectorComponent';
 
@@ -110,7 +111,7 @@ class InteractiveForm extends React.Component<CFProps, CFState> {
 
                 </form>
                 {this.state.showImage == "true"
-                    ? renderHTML(this.state.imageData)
+                    ? <div>{ReactHtmlParser(this.state.imageData)}</div>
                     : null
                 }
             </div >
