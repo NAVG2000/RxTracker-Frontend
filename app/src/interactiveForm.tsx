@@ -68,7 +68,6 @@ class InteractiveForm extends React.Component<CFProps, CFState> {
         this.postData()()
             .then((data) => {
                 console.log(data)
-                document.getElementById('interactiveImage').innerHTML = data
                 this.setState({ showImage: "true", imageData: data })
             });
     }
@@ -111,6 +110,10 @@ class InteractiveForm extends React.Component<CFProps, CFState> {
                     <input type="submit" value="Predict" />
 
                 </form>
+                {this.state.showImage == "true"
+                    ? <div dangerouslySetInnerHTML={{ __html: this.state.imageData }} />
+                    : null
+                }
             </div >
         )
     }
