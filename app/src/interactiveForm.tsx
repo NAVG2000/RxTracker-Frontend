@@ -111,7 +111,7 @@ class InteractiveForm extends React.Component<CFProps, CFState> {
 
                 </form>
                 {this.state.showImage == "true"
-                    ? <div>{ReactHtmlParser(this.state.imageData)}</div>
+                    ? document.getElementById('interactiveImage').innerHTML = this.state.imageData
                     : null
                 }
             </div >
