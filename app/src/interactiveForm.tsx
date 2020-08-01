@@ -117,10 +117,6 @@ class InteractiveForm extends React.Component<CFProps, CFState> {
                     ? <div> this.state.imageData </div>
                     : null
                 }
-                {this.state.showImage == "true"
-                    ? this.setState({ rendered: "true" })
-                    : null
-                }
             </div >
         )
     }
