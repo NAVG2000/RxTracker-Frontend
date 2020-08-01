@@ -2,6 +2,8 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import renderHTML from 'react-render-html';
 import ReactHtmlParser from 'react-html-parser';
+var ReactDOMServer = require('react-dom/server');
+var HtmlToReactParser = require('html-to-react').Parser;
 
 import Selector from './formSelectorComponent';
 
@@ -69,8 +71,15 @@ class InteractiveForm extends React.Component<CFProps, CFState> {
         e.preventDefault();
         this.postData()()
             .then((data) => {
-                console.log(data)
-                this.setState({ showImage: "true", imageData: data })
+                console.log(typeof data);
+                console.log(data);
+                var htmlInput = data;
+                var htmlToReactParser = new HtmlToReactParser();
+                var reactElement = htmlToReactParser.parse(htmlInput);
+                var reactHtml = ReactDOMServer.renderToStaticMarkup(reactElement);
+                console.log(typeof reactHtml);
+                console.log(reactHtml);
+                this.setState({ showImage: "true", imageData: reactHtml })
             });
     }
     //WHEN INJECTING THE CODE, UPDATE PROPS OR STATE WITH A VARIABLE LIKE "ISINJECTED" TO TRIGGER
