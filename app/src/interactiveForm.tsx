@@ -4,6 +4,7 @@ import renderHTML from 'react-render-html';
 import ReactHtmlParser from 'react-html-parser';
 var ReactDOMServer = require('react-dom/server');
 var HtmlToReactParser = require('html-to-react').Parser;
+import InnerHTML from 'dangerously-set-html-content'
 
 import Selector from './formSelectorComponent';
 
@@ -121,7 +122,7 @@ class InteractiveForm extends React.Component<CFProps, CFState> {
 
                 </form>
                 {this.state.showImage == "true"
-                    ? <div dangerouslySetInnerHTML={this.createMarkup()} />
+                    ? <InnerHTML html={this.state.imageData} />
                     : null
                 }
             </div >
