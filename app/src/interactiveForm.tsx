@@ -76,6 +76,10 @@ class InteractiveForm extends React.Component<CFProps, CFState> {
                 this.setState({ showImage: "true", imageData: data })
             });
     }
+
+    createMarkup() {
+        return { __html: this.state.imageData };
+    }
     //WHEN INJECTING THE CODE, UPDATE PROPS OR STATE WITH A VARIABLE LIKE "ISINJECTED" TO TRIGGER
     // A RERENDER. OR TRY AN IFRAME
     render() {
@@ -117,7 +121,7 @@ class InteractiveForm extends React.Component<CFProps, CFState> {
 
                 </form>
                 {this.state.showImage == "true"
-                    ? <div dangerouslySetInnerHTML={{ __html: this.state.imageData }} />
+                    ? <div dangerouslySetInnerHTML={this.createMarkup()} />
                     : null
                 }
             </div >
