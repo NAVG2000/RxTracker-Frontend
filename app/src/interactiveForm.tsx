@@ -73,13 +73,7 @@ class InteractiveForm extends React.Component<CFProps, CFState> {
             .then((data) => {
                 console.log(typeof data);
                 console.log(data);
-                var htmlInput = data;
-                var htmlToReactParser = new HtmlToReactParser();
-                var reactElement = htmlToReactParser.parse(htmlInput);
-                var reactHtml = ReactDOMServer.renderToStaticMarkup(reactElement);
-                console.log(typeof reactHtml);
-                console.log(reactHtml);
-                this.setState({ showImage: "true", imageData: reactHtml })
+                this.setState({ showImage: "true", imageData: data })
             });
     }
     //WHEN INJECTING THE CODE, UPDATE PROPS OR STATE WITH A VARIABLE LIKE "ISINJECTED" TO TRIGGER
@@ -123,7 +117,7 @@ class InteractiveForm extends React.Component<CFProps, CFState> {
 
                 </form>
                 {this.state.showImage == "true"
-                    ? <div> {this.state.imageData} </div>
+                    ? <div dangerouslySetInnerHTML={{ __html: this.state.imageData }} />
                     : null
                 }
             </div >
