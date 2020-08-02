@@ -1,5 +1,5 @@
 import * as React from 'react';
-import * as ReactDOM from 'react-dom';
+import InnerHTML from 'dangerously-set-html-content'
 
 import Selector from './formSelectorComponent';
 
@@ -15,10 +15,11 @@ interface CFState {
     weeksToTrain: string;
     dataSource: string;
     showImage: string;
-    imageB64: string;
+    imageData: string;
+    rendered: string;
 }
 
-class ChartForm extends React.Component<CFProps, CFState> {
+class InteractiveForm extends React.Component<CFProps, CFState> {
     constructor(props) {
         super(props);
         this.handleChange = this.handleChange.bind(this);
@@ -31,11 +32,12 @@ class ChartForm extends React.Component<CFProps, CFState> {
             weeksToTrain: '156',
             dataSource: 'updated',
             showImage: "false",
-            imageB64: "",
+            imageData: "",
+            rendered: "false"
         };
     }
 
-    postData(url = 'http://api.rxpredictify.com/chart', data = {
+    postData(url = 'http://api.rxpredictify.com/interactive', data = {
         "drug": this.state.drugName,
         "chartType": this.state.chartType,
         "weeks": Number(this.state.numWeeks),
@@ -65,10 +67,17 @@ class ChartForm extends React.Component<CFProps, CFState> {
         e.preventDefault();
         this.postData()()
             .then((data) => {
-                this.setState({ showImage: "true", imageB64: data })
+                console.log(typeof data);
+                console.log(data);
+                this.setState({ showImage: "true", imageData: data })
             });
     }
 
+    createMarkup() {
+        return { __html: this.state.imageData };
+    }
+    //WHEN INJECTING THE CODE, UPDATE PROPS OR STATE WITH A VARIABLE LIKE "ISINJECTED" TO TRIGGER
+    // A RERENDER. OR TRY AN IFRAME
     render() {
         return (
             <div id='chartFormContainer'>
@@ -108,7 +117,7 @@ class ChartForm extends React.Component<CFProps, CFState> {
 
                 </form>
                 {this.state.showImage == "true"
-                    ? <img src={"data:image/png;base64, " + this.state.imageB64} />
+                    ? <InnerHTML html={this.state.imageData} />
                     : null
                 }
             </div >
@@ -116,4 +125,4 @@ class ChartForm extends React.Component<CFProps, CFState> {
     }
 }
 
-export default ChartForm;
+export default InteractiveForm;
