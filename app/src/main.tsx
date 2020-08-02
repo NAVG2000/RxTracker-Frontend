@@ -1,5 +1,7 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
+import store from './store';
 
 import "./main.css";
 import ChartForm from './chartForm';
@@ -20,10 +22,13 @@ class App extends React.Component<AppProps, AppState> {
     }
 
     render() {
-        return (<div id='AppContainer'>
-            <Header />
-            <ChartForm />
-        </div>)
+        return (
+            <Provider store={store}>
+                <div id='AppContainer'>
+                    <Header />
+                    <ChartForm />
+                </div>
+            </Provider>)
     }
 }
 

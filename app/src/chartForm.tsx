@@ -1,13 +1,11 @@
 import * as React from 'react';
+import { connect } from 'react-redux'
 import InnerHTML from 'dangerously-set-html-content'
 
 import Selector from './formSelectorComponent';
+import { updateChart } from './actions';
 
 interface CFProps {
-
-}
-
-interface CFState {
     drugName: string;
     chartType: string;
     numWeeks: string;
@@ -16,34 +14,26 @@ interface CFState {
     dataSource: string;
     showImage: string;
     imageData: string;
-    rendered: string;
+    dispatch: Function;
 }
 
-class InteractiveForm extends React.Component<CFProps, CFState> {
+interface CFState {
+}
+
+class ChartFormComponent extends React.Component<CFProps, CFState> {
     constructor(props) {
         super(props);
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.state = {
-            drugName: 'vascepa',
-            chartType: 'graph_normalizedNRx',
-            numWeeks: '52',
-            predictBool: 'true',
-            weeksToTrain: '156',
-            dataSource: 'updated',
-            showImage: "false",
-            imageData: "",
-            rendered: "false"
-        };
     }
 
     postData(url = 'http://api.rxpredictify.com/interactive', data = {
-        "drug": this.state.drugName,
-        "chartType": this.state.chartType,
-        "weeks": Number(this.state.numWeeks),
-        "predictBool": Boolean(this.state.predictBool),
-        "source": this.state.dataSource,
-        "weeksToTrainOn": Number(this.state.weeksToTrain)
+        "drug": this.props.drugName,
+        "chartType": this.props.chartType,
+        "weeks": Number(this.props.numWeeks),
+        "predictBool": Boolean(this.props.predictBool),
+        "source": this.props.dataSource,
+        "weeksToTrainOn": Number(this.props.weeksToTrain)
     }) {
         return async () => {
             const response = await fetch(url, {
@@ -60,55 +50,52 @@ class InteractiveForm extends React.Component<CFProps, CFState> {
     handleChange(e: React.ChangeEvent<HTMLSelectElement>) {
         const name = e.target.name;
         const newVal = e.target.value;
-        this.setState({ [name]: newVal } as Pick<CFState, keyof CFState>);
+        this.props.dispatch(updateChart({ [name]: newVal }));
     }
 
     handleSubmit(e) {
         e.preventDefault();
         this.postData()()
             .then((data) => {
-                console.log(typeof data);
-                console.log(data);
-                this.setState({ showImage: "true", imageData: data })
+                this.props.dispatch(updateChart({ showImage: "true", imageData: data }));
             });
     }
 
     createMarkup() {
-        return { __html: this.state.imageData };
+        return { __html: this.props.imageData };
     }
-    //WHEN INJECTING THE CODE, UPDATE PROPS OR STATE WITH A VARIABLE LIKE "ISINJECTED" TO TRIGGER
-    // A RERENDER. OR TRY AN IFRAME
+
     render() {
         return (
             <div id='chartFormContainer'>
                 <form onSubmit={this.handleSubmit} id='chartForm'>
-                    <Selector name='drugName' label='Drug Name' value={this.state.drugName}
+                    <Selector name='drugName' label='Drug Name' value={this.props.drugName}
                         handleChange={this.handleChange} options=
                         {[['vascepa', 'Vascepa'], ['drug1', 'Drug1']]} />
 
-                    <Selector name='chartType' label='Chart Type' value={this.state.chartType}
+                    <Selector name='chartType' label='Chart Type' value={this.props.chartType}
                         handleChange={this.handleChange} options={[
                             ['graph_normalizedTRx', 'Normalized Total Prescriptions'],
                             ['graph_normalizedNRx', 'Normalized New Prescriptions'],
                             ['graph_normalizedRRx', 'Normalized Refill Prescriptions']]} />
 
-                    <Selector name='numWeeks' label='Number of Weeks' value={this.state.numWeeks}
+                    <Selector name='numWeeks' label='Number of Weeks' value={this.props.numWeeks}
                         handleChange={this.handleChange} options={[
                             ['52', ' 52 weeks'],
                             ['104', '104 weeks'],
                             ['156', '156 weeks']]} />
 
-                    <Selector name='predictBool' label='Show Prediction' value={this.state.predictBool}
+                    <Selector name='predictBool' label='Show Prediction' value={this.props.predictBool}
                         handleChange={this.handleChange} options={[
                             ['true', 'Yes'],
                             ['false', 'No']]} />
 
                     <Selector name='weeksToTrain' label='Weeks to Train Prediction'
-                        value={this.state.weeksToTrain} handleChange={this.handleChange} options={[
+                        value={this.props.weeksToTrain} handleChange={this.handleChange} options={[
                             ['156', '156 weeks'],
                             ['208', '208 weeks']]} />
 
-                    <Selector name='dataSource' label='Data Source' value={this.state.dataSource}
+                    <Selector name='dataSource' label='Data Source' value={this.props.dataSource}
                         handleChange={this.handleChange} options={[
                             ['updated', 'Updated'],
                             ['raw', 'Raw']]} />
@@ -116,8 +103,8 @@ class InteractiveForm extends React.Component<CFProps, CFState> {
                     <input type="submit" value="Predict" />
 
                 </form>
-                {this.state.showImage == "true"
-                    ? <InnerHTML html={this.state.imageData} />
+                {this.props.showImage == "true"
+                    ? <InnerHTML html={this.props.imageData} />
                     : null
                 }
             </div >
@@ -125,4 +112,19 @@ class InteractiveForm extends React.Component<CFProps, CFState> {
     }
 }
 
-export default InteractiveForm;
+const mapStateToProps = state => {
+    return {
+        drugName: state.chart.drugName,
+        chartType: state.chart.chartType,
+        numWeeks: state.chart.numWeeks,
+        predictBool: state.chart.predictBool,
+        weeksToTrain: state.chart.weeksToTrain,
+        dataSource: state.chart.dataSource,
+        showImage: state.chart.showImage,
+        imageData: state.chart.imageData
+    }
+}
+
+const ChartForm = connect(mapStateToProps)(ChartFormComponent);
+
+export default ChartForm;
