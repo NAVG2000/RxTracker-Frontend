@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 
 interface selectorProps {
     name: string;
@@ -10,6 +10,27 @@ interface selectorProps {
 
 interface selectorState {
 
+}
+
+const styles = {
+    formSelector: {
+        width: "70%",
+        padding: "15px 10px",
+        margin: "0 auto",
+        display: "inline-block",
+        border: "1px solid rgb(177, 67, 67)",
+        borderRadius: "4px",
+        boxSizing: "border-box" as const
+    },
+    select: {
+        width: '70%',
+        padding: '16px 20px',
+        display: 'block',
+        border: 'none',
+        borderRadius: '4px',
+        backgroundColor: '#edb8b8',
+        textAlign: 'center' as const
+    }
 }
 
 class Selector extends React.Component<selectorProps, selectorState>{
@@ -31,9 +52,9 @@ class Selector extends React.Component<selectorProps, selectorState>{
 
     render() {
         return (
-            <div className='formSelector'>
+            <div style={styles.formSelector}>
                 <label htmlFor={this.props.name}>{this.props.label}</label>
-                <select name={this.props.name} value={this.props.value} onChange={this.handleChange}>
+                <select style={styles.select} name={this.props.name} value={this.props.value} onChange={this.handleChange}>
                     {this.createOptions()}
                 </select>
             </div>

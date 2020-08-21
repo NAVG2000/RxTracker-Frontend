@@ -1,21 +1,23 @@
-import * as React from 'react';
-import * as ReactDOM from 'react-dom';
+import React from 'react';
 
-interface HearderProps { }
-
-interface HeaderState { }
-
-class Header extends React.Component<HearderProps, HeaderState>{
-    constructor(props) {
-        super(props);
+const styles = {
+    headerContainer: {
+        width: '100%',
+        display: 'flexbox',
+        fontSize: '42px',
+        textAlign: 'center' as const,
+        color: 'rgb(172, 68, 68)',
+        textShadow: '3px rgb(0, 0, 0)',
+        height: '10%'
     }
+}
 
-
-    render() {
-        return <div id='headerContainer'>
+const Header = () => {
+    return (
+        <div style={styles.headerContainer}>
             RxTrackify
         </div>
-    }
+    );
 }
 
 export default Header;

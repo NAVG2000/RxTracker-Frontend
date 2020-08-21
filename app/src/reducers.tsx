@@ -14,7 +14,7 @@ export const initialState = {
     imageData: ""
 }
 
-function chart(state = initialState, action) {
+function chartReducer(state = initialState, action) {
     switch (action.type) {
         case UPDATE_CHART:
             return {
@@ -27,7 +27,7 @@ function chart(state = initialState, action) {
 }
 
 const charts = combineReducers({
-    chart
+    chart: chartReducer
 })
 
 export default charts;

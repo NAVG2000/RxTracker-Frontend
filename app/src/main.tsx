@@ -1,40 +1,30 @@
-import * as React from 'react';
-import * as ReactDOM from 'react-dom';
+import React from 'react';
+import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import store from './store';
 
-import "./main.css";
 import ChartForm from './chartForm';
 import Header from './header';
 
-interface AppProps {
-
-}
-
-interface AppState {
-
-}
-
-class App extends React.Component<AppProps, AppState> {
-    constructor(props) {
-        super(props);
-
-    }
-
-    render() {
-        return (
-            <Provider store={store}>
-                <div id='AppContainer'>
-                    <Header />
-                    <ChartForm />
-                </div>
-            </Provider>)
+const styles = {
+    appContainer: {
+        width: "80%",
+        margin: "auto"
     }
 }
 
-const element = <App />;
+export default function App() {
+    return (
+        <Provider store={store}>
+            <div style={styles.appContainer}>
+                <Header />
+                <ChartForm />
+            </div>
+        </Provider>
+    );
+}
 
 ReactDOM.render(
-    element,
-    document.getElementById('appRoot')
+    <App />,
+    document.getElementById('root')
 );

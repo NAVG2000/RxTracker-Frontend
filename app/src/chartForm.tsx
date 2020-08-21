@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { connect } from 'react-redux'
 import InnerHTML from 'dangerously-set-html-content'
 
@@ -18,6 +18,24 @@ interface CFProps {
 }
 
 interface CFState {
+}
+
+const styles = {
+    chartFormContainer: {
+        width: '40%',
+        display: 'inline-block',
+        backgroundColor: 'rgb(199, 199, 199)',
+        alignItems: 'center'
+    },
+    button: {
+        backgroundColor: 'rgb(85, 57, 57)',
+        border: 'none',
+        color: 'white',
+        padding: '10px 20px',
+        textDecoration: 'none',
+        margin: '0 auto',
+        cursor: 'pointer'
+    }
 }
 
 class ChartFormComponent extends React.Component<CFProps, CFState> {
@@ -67,7 +85,7 @@ class ChartFormComponent extends React.Component<CFProps, CFState> {
 
     render() {
         return (
-            <div id='chartFormContainer'>
+            <div style={styles.chartFormContainer}>
                 <form onSubmit={this.handleSubmit} id='chartForm'>
                     <Selector name='drugName' label='Drug Name' value={this.props.drugName}
                         handleChange={this.handleChange} options=
@@ -100,7 +118,7 @@ class ChartFormComponent extends React.Component<CFProps, CFState> {
                             ['updated', 'Updated'],
                             ['raw', 'Raw']]} />
 
-                    <input type="submit" value="Predict" />
+                    <input style={styles.button} type="submit" value="Predict" />
 
                 </form>
                 {this.props.showImage == "true"
