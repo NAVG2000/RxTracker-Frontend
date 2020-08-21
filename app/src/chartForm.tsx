@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import InnerHTML from 'dangerously-set-html-content'
 
 import Selector from './formSelectorComponent';
-import { updateChart } from './actions';
+import { updateChart, createChartThunk } from './actions';
 
 const styles = {
     chartFormContainer: {
@@ -24,26 +24,6 @@ const styles = {
 }
 
 const ChartFormComponent = props => {
-    function postData(url = 'http://api.rxpredictify.com/interactive', data = {
-        "drug": props.drugName,
-        "chartType": props.chartType,
-        "weeks": Number(props.numWeeks),
-        "predictBool": Boolean(props.predictBool),
-        "source": props.dataSource,
-        "weeksToTrainOn": Number(props.weeksToTrain)
-    }) {
-        return async () => {
-            const response = await fetch(url, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data)
-            });
-            return response.text();
-        }
-    }
-
     function handleChange(e) {
         const name = e.target.name;
         const newVal = e.target.value;
@@ -52,10 +32,16 @@ const ChartFormComponent = props => {
 
     function handleSubmit(e) {
         e.preventDefault();
-        postData()()
-            .then((data) => {
-                props.dispatch(updateChart({ showImage: "true", imageData: data }));
-            });
+        props.dispatch(createChartThunk(
+            {
+                "drug": props.drugName,
+                "chartType": props.chartType,
+                "weeks": Number(props.numWeeks),
+                "predictBool": Boolean(props.predictBool),
+                "source": props.dataSource,
+                "weeksToTrainOn": Number(props.weeksToTrain)
+            }
+        ));
     }
 
     return (
