@@ -22,7 +22,7 @@ export function createChartThunk(data) {
             body: JSON.stringify(data)
         });
 
-        const imageData = response.text();
+        const imageData = await response.text();
         return dispatch(updateChart({ showImage: "true", imageData }));
     }
 }
