@@ -26,8 +26,8 @@ function chartReducer(state = initialState, action) {
     }
 }
 
-const charts = combineReducers({
+const rootReducer = combineReducers({
     chart: chartReducer
 })
 
-export default charts;
+export default rootReducer;

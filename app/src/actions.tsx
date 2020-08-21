@@ -10,9 +10,10 @@ export function updateChart(payload) {
     return { type: UPDATE_CHART, payload }
 }
 
-export const createChartThunk = data => {
+export function createChartThunk(data) {
     return async dispatch => {
         const url = 'http://api.rxpredictify.com/interactive';
+
         const response = await fetch(url, {
             method: 'POST',
             headers: {
@@ -21,6 +22,7 @@ export const createChartThunk = data => {
             body: JSON.stringify(data)
         });
 
-        return dispatch(updateChart({ showImage: "true", imageData: response.text() }));
+        const imageData = response.text();
+        return dispatch(updateChart({ showImage: "true", imageData }));
     }
 }
