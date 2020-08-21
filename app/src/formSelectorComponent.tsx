@@ -1,17 +1,5 @@
 import React from 'react';
 
-interface selectorProps {
-    name: string;
-    value: string;
-    label: string;
-    handleChange: Function;
-    options: [string, string][];
-}
-
-interface selectorState {
-
-}
-
 const styles = {
     formSelector: {
         width: "70%",
@@ -33,33 +21,22 @@ const styles = {
     }
 }
 
-class Selector extends React.Component<selectorProps, selectorState>{
-    constructor(props) {
-        super(props);
-        this.createOptions = this.createOptions.bind(this);
-        this.handleChange = this.handleChange.bind(this);
-    }
-
-    createOptions() {
-        const options = this.props.options.map(
+const Selector = props => {
+    function createOptions() {
+        const options = props.options.map(
             tup => <option value={tup[0]}> {tup[1]}</option>);
         return options
     }
 
-    handleChange(e: React.ChangeEvent<HTMLSelectElement>) {
-        this.props.handleChange(e);
-    }
 
-    render() {
-        return (
-            <div style={styles.formSelector}>
-                <label htmlFor={this.props.name}>{this.props.label}</label>
-                <select style={styles.select} name={this.props.name} value={this.props.value} onChange={this.handleChange}>
-                    {this.createOptions()}
-                </select>
-            </div>
-        );
-    }
+    return (
+        <div style={styles.formSelector}>
+            <label htmlFor={props.name}>{props.label}</label>
+            <select style={styles.select} name={props.name} value={props.value} onChange={props.handleChange}>
+                {createOptions()}
+            </select>
+        </div>
+    );
 }
 
 export default Selector;

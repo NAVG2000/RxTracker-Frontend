@@ -5,21 +5,6 @@ import InnerHTML from 'dangerously-set-html-content'
 import Selector from './formSelectorComponent';
 import { updateChart } from './actions';
 
-interface CFProps {
-    drugName: string;
-    chartType: string;
-    numWeeks: string;
-    predictBool: string;
-    weeksToTrain: string;
-    dataSource: string;
-    showImage: string;
-    imageData: string;
-    dispatch: Function;
-}
-
-interface CFState {
-}
-
 const styles = {
     chartFormContainer: {
         width: '40%',
@@ -38,20 +23,14 @@ const styles = {
     }
 }
 
-class ChartFormComponent extends React.Component<CFProps, CFState> {
-    constructor(props) {
-        super(props);
-        this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
-    }
-
-    postData(url = 'http://api.rxpredictify.com/interactive', data = {
-        "drug": this.props.drugName,
-        "chartType": this.props.chartType,
-        "weeks": Number(this.props.numWeeks),
-        "predictBool": Boolean(this.props.predictBool),
-        "source": this.props.dataSource,
-        "weeksToTrainOn": Number(this.props.weeksToTrain)
+const ChartFormComponent = props => {
+    function postData(url = 'http://api.rxpredictify.com/interactive', data = {
+        "drug": props.drugName,
+        "chartType": props.chartType,
+        "weeks": Number(props.numWeeks),
+        "predictBool": Boolean(props.predictBool),
+        "source": props.dataSource,
+        "weeksToTrainOn": Number(props.weeksToTrain)
     }) {
         return async () => {
             const response = await fetch(url, {
@@ -65,69 +44,63 @@ class ChartFormComponent extends React.Component<CFProps, CFState> {
         }
     }
 
-    handleChange(e: React.ChangeEvent<HTMLSelectElement>) {
+    function handleChange(e) {
         const name = e.target.name;
         const newVal = e.target.value;
-        this.props.dispatch(updateChart({ [name]: newVal }));
+        props.dispatch(updateChart({ [name]: newVal }));
     }
 
-    handleSubmit(e) {
+    function handleSubmit(e) {
         e.preventDefault();
-        this.postData()()
+        postData()()
             .then((data) => {
-                this.props.dispatch(updateChart({ showImage: "true", imageData: data }));
+                props.dispatch(updateChart({ showImage: "true", imageData: data }));
             });
     }
 
-    createMarkup() {
-        return { __html: this.props.imageData };
-    }
+    return (
+        <div style={styles.chartFormContainer}>
+            <form onSubmit={handleSubmit} id='chartForm'>
+                <Selector name='drugName' label='Drug Name' value={props.drugName}
+                    handleChange={handleChange} options=
+                    {[['vascepa', 'Vascepa'], ['drug1', 'Drug1']]} />
 
-    render() {
-        return (
-            <div style={styles.chartFormContainer}>
-                <form onSubmit={this.handleSubmit} id='chartForm'>
-                    <Selector name='drugName' label='Drug Name' value={this.props.drugName}
-                        handleChange={this.handleChange} options=
-                        {[['vascepa', 'Vascepa'], ['drug1', 'Drug1']]} />
+                <Selector name='chartType' label='Chart Type' value={props.chartType}
+                    handleChange={handleChange} options={[
+                        ['graph_normalizedTRx', 'Normalized Total Prescriptions'],
+                        ['graph_normalizedNRx', 'Normalized New Prescriptions'],
+                        ['graph_normalizedRRx', 'Normalized Refill Prescriptions']]} />
 
-                    <Selector name='chartType' label='Chart Type' value={this.props.chartType}
-                        handleChange={this.handleChange} options={[
-                            ['graph_normalizedTRx', 'Normalized Total Prescriptions'],
-                            ['graph_normalizedNRx', 'Normalized New Prescriptions'],
-                            ['graph_normalizedRRx', 'Normalized Refill Prescriptions']]} />
+                <Selector name='numWeeks' label='Number of Weeks' value={props.numWeeks}
+                    handleChange={handleChange} options={[
+                        ['52', ' 52 weeks'],
+                        ['104', '104 weeks'],
+                        ['156', '156 weeks']]} />
 
-                    <Selector name='numWeeks' label='Number of Weeks' value={this.props.numWeeks}
-                        handleChange={this.handleChange} options={[
-                            ['52', ' 52 weeks'],
-                            ['104', '104 weeks'],
-                            ['156', '156 weeks']]} />
+                <Selector name='predictBool' label='Show Prediction' value={props.predictBool}
+                    handleChange={handleChange} options={[
+                        ['true', 'Yes'],
+                        ['false', 'No']]} />
 
-                    <Selector name='predictBool' label='Show Prediction' value={this.props.predictBool}
-                        handleChange={this.handleChange} options={[
-                            ['true', 'Yes'],
-                            ['false', 'No']]} />
+                <Selector name='weeksToTrain' label='Weeks to Train Prediction'
+                    value={props.weeksToTrain} handleChange={handleChange} options={[
+                        ['156', '156 weeks'],
+                        ['208', '208 weeks']]} />
 
-                    <Selector name='weeksToTrain' label='Weeks to Train Prediction'
-                        value={this.props.weeksToTrain} handleChange={this.handleChange} options={[
-                            ['156', '156 weeks'],
-                            ['208', '208 weeks']]} />
+                <Selector name='dataSource' label='Data Source' value={props.dataSource}
+                    handleChange={handleChange} options={[
+                        ['updated', 'Updated'],
+                        ['raw', 'Raw']]} />
 
-                    <Selector name='dataSource' label='Data Source' value={this.props.dataSource}
-                        handleChange={this.handleChange} options={[
-                            ['updated', 'Updated'],
-                            ['raw', 'Raw']]} />
+                <input style={styles.button} type="submit" value="Predict" />
 
-                    <input style={styles.button} type="submit" value="Predict" />
-
-                </form>
-                {this.props.showImage == "true"
-                    ? <InnerHTML html={this.props.imageData} />
-                    : null
-                }
-            </div >
-        )
-    }
+            </form>
+            {props.showImage == "true"
+                ? <InnerHTML html={props.imageData} />
+                : null
+            }
+        </div >
+    );
 }
 
 const mapStateToProps = state => {
