@@ -65,6 +65,7 @@ const ChartFormComponent = props => {
         <div style={styles.chartFormContainer}>
             <form style={styles.form} onSubmit={handleSubmit} >
                 <Selector
+                    label='Drug Name'
                     style={styles.selector}
                     value={props.drugName}
                     handleChange={handleChange}
@@ -72,6 +73,7 @@ const ChartFormComponent = props => {
                 />
 
                 <Selector
+                    label='Chart Type'
                     style={styles.selector}
                     value={props.chartType}
                     handleChange={handleChange}
@@ -83,6 +85,7 @@ const ChartFormComponent = props => {
                 />
 
                 <Selector
+                    label='Number of Weeks'
                     style={styles.selector}
                     value={props.numWeeks}
                     handleChange={handleChange}
@@ -94,6 +97,7 @@ const ChartFormComponent = props => {
                 />
 
                 <Selector
+                    label='Show Prediction'
                     style={styles.selector}
                     value={props.predictBool}
                     handleChange={handleChange}
@@ -104,6 +108,7 @@ const ChartFormComponent = props => {
                 />
 
                 <Selector
+                    label='Weeks to Train Prediction'
                     style={styles.selector}
                     value={props.weeksToTrain}
                     handleChange={handleChange}
@@ -114,6 +119,7 @@ const ChartFormComponent = props => {
                 />
 
                 <Selector
+                    label='Data Source'
                     style={styles.selector}
                     value={props.dataSource}
                     handleChange={handleChange}

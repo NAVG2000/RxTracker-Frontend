@@ -12,7 +12,7 @@ export function updateChart(payload) {
 
 export function createChartThunk(data) {
     return async dispatch => {
-        const url = 'http://api.rxpredictify.com/interactive';
+        const url = 'https://api.rxpredictify.com/interactive';
 
         const response = await fetch(url, {
             method: 'POST',

@@ -9,5 +9,5 @@ RUN cp /app/nginx.conf /etc/nginx/conf.d
 RUN cp -a /app/dist/. /usr/share/nginx/html
 RUN rm /etc/nginx/sites-enabled/default
 RUN rm /etc/nginx/sites-available/default
-EXPOSE 80 443
+EXPOSE 80
 CMD nginx -g 'daemon off;'
