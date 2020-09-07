@@ -7,10 +7,27 @@ import { updateChart, createChartThunk } from './actions';
 
 const styles = {
     chartFormContainer: {
-        width: '40%',
+        display: 'flex',
+        flexDirection: 'column' as const,
+        justifyContent: 'center',
+        width: '80%',
+        backgroundColor: 'rgb(255, 204, 153)',
+    },
+    form: {
+        display: 'flex',
+        flexDirection: 'column' as const,
+        justifyContent: 'center',
+        width: '100%'
+    },
+    selector: {
+        width: '100%',
+        fontSize: '30px',
+        padding: '15px 10px',
+        margin: '0 auto',
         display: 'inline-block',
-        backgroundColor: 'rgb(199, 199, 199)',
-        alignItems: 'center'
+        border: '1px solid rgb(177, 67, 67)',
+        borderRadius: '4px',
+        boxSizing: 'border-box'
     },
     button: {
         backgroundColor: 'rgb(85, 57, 57)',
@@ -46,41 +63,74 @@ const ChartFormComponent = props => {
 
     return (
         <div style={styles.chartFormContainer}>
-            <form onSubmit={handleSubmit} id='chartForm'>
-                <Selector name='drugName' label='Drug Name' value={props.drugName}
-                    handleChange={handleChange} options=
-                    {[['vascepa', 'Vascepa'], ['drug1', 'Drug1']]} />
+            <form style={styles.form} onSubmit={handleSubmit} >
+                <Selector
+                    style={styles.selector}
+                    value={props.drugName}
+                    handleChange={handleChange}
+                    options={[['vascepa', 'Vascepa'], ['drug1', 'Drug1']]}
+                />
 
-                <Selector name='chartType' label='Chart Type' value={props.chartType}
-                    handleChange={handleChange} options={[
+                <Selector
+                    style={styles.selector}
+                    value={props.chartType}
+                    handleChange={handleChange}
+                    options={[
                         ['graph_normalizedTRx', 'Normalized Total Prescriptions'],
                         ['graph_normalizedNRx', 'Normalized New Prescriptions'],
-                        ['graph_normalizedRRx', 'Normalized Refill Prescriptions']]} />
+                        ['graph_normalizedRRx', 'Normalized Refill Prescriptions']
+                    ]}
+                />
 
-                <Selector name='numWeeks' label='Number of Weeks' value={props.numWeeks}
-                    handleChange={handleChange} options={[
+                <Selector
+                    style={styles.selector}
+                    value={props.numWeeks}
+                    handleChange={handleChange}
+                    options={[
                         ['52', ' 52 weeks'],
                         ['104', '104 weeks'],
-                        ['156', '156 weeks']]} />
+                        ['156', '156 weeks']
+                    ]}
+                />
 
-                <Selector name='predictBool' label='Show Prediction' value={props.predictBool}
-                    handleChange={handleChange} options={[
+                <Selector
+                    style={styles.selector}
+                    value={props.predictBool}
+                    handleChange={handleChange}
+                    options={[
                         ['true', 'Yes'],
-                        ['false', 'No']]} />
+                        ['false', 'No']
+                    ]}
+                />
 
-                <Selector name='weeksToTrain' label='Weeks to Train Prediction'
-                    value={props.weeksToTrain} handleChange={handleChange} options={[
+                <Selector
+                    style={styles.selector}
+                    value={props.weeksToTrain}
+                    handleChange={handleChange}
+                    options={[
                         ['156', '156 weeks'],
-                        ['208', '208 weeks']]} />
+                        ['208', '208 weeks']
+                    ]}
+                />
 
-                <Selector name='dataSource' label='Data Source' value={props.dataSource}
-                    handleChange={handleChange} options={[
+                <Selector
+                    style={styles.selector}
+                    value={props.dataSource}
+                    handleChange={handleChange}
+                    options={[
                         ['updated', 'Updated'],
-                        ['raw', 'Raw']]} />
+                        ['raw', 'Raw']
+                    ]}
+                />
 
-                <input style={styles.button} type="submit" value="Predict" />
+                <input
+                    style={styles.button}
+                    type="submit"
+                    value="Predict"
+                />
 
             </form>
+
             {props.showImage == "true"
                 ? <InnerHTML html={props.imageData} />
                 : null

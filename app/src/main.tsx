@@ -1,3 +1,4 @@
+import "./main.css";
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
@@ -8,19 +9,23 @@ import Header from './header';
 
 const styles = {
     appContainer: {
-        width: "80%",
-        margin: "auto"
+        display: 'flex',
+        flex: 1,
+        flexDirection: 'column' as const,
+        alignItems: 'center',
+        width: '100%',
+        height: '100%',
     }
 }
 
 export default function App() {
     return (
-        <Provider store={store}>
-            <div style={styles.appContainer}>
+        <div style={styles.appContainer}>
+            <Provider store={store}>
                 <Header />
                 <ChartForm />
-            </div>
-        </Provider>
+            </Provider>
+        </div>
     );
 }
 

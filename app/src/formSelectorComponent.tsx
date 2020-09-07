@@ -3,20 +3,21 @@ import React from 'react';
 const styles = {
     formSelector: {
         width: "70%",
-        padding: "15px 10px",
-        margin: "0 auto",
-        display: "inline-block",
+        justifyContent: 'center',
+        //padding: "15px 10px",
+        //margin: "0 auto",
+        //display: "inline-block",
         border: "1px solid rgb(177, 67, 67)",
         borderRadius: "4px",
-        boxSizing: "border-box" as const
+        //boxSizing: "border-box" as const
     },
     select: {
         width: '70%',
         padding: '16px 20px',
-        display: 'block',
-        border: 'none',
-        borderRadius: '4px',
-        backgroundColor: '#edb8b8',
+        //display: 'block',
+        //border: 'none',
+        //borderRadius: '4px',
+        backgroundColor: 'rgb(255, 255, 255)',
         textAlign: 'center' as const
     }
 }

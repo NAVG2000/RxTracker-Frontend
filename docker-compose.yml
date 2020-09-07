@@ -6,3 +6,4 @@ services:
         image: 980070691560.dkr.ecr.us-east-1.amazonaws.com/rx_tracker_frontend_nginx:latest
         ports:
             - "80:80"
+            - "443:443"
