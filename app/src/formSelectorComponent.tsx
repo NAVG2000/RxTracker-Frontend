@@ -5,25 +5,12 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 
 const styles = {
     formSelector: {
-        width: "70%",
+        width: "80%",
         display: 'flex',
         flexDirection: 'column' as const,
         justifyContent: 'center',
-        //padding: "15px 10px",
-        //margin: "0 auto",
-        //display: "inline-block",
-        border: "1px solid rgb(177, 67, 67)",
-        borderRadius: "4px",
-        //boxSizing: "border-box" as const
-    },
-    select: {
-        width: '100%',
-        margin: '10px',
-        //display: 'block',
-        //border: 'none',
-        //borderRadius: '4px',
-        backgroundColor: 'rgb(255, 255, 255)',
-        textAlign: 'center' as const
+        alignItems: 'center',
+        marginTop: '15px'
     },
     label: {
         fontSize: '20px'
@@ -35,11 +22,13 @@ const Selector = props => {
     const useStyles = makeStyles((theme: Theme) =>
         createStyles({
             select: {
-                marginTop: theme.spacing(2),
+                marginTop: '15px',
+                marginBottom: '15px',
                 border: '1px solid rgb(177, 67, 67)',
                 borderRadius: '4px',
                 backgroundColor: 'rgb(255, 255, 255)',
-                textAlign: 'center' as const
+                textAlign: 'center' as const,
+                width: '100%'
             },
         }),
     );

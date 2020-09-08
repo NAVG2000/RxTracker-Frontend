@@ -1,7 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux'
-import InnerHTML from 'dangerously-set-html-content'
-import FormControl from '@material-ui/core/FormControl';
 import Button from '@material-ui/core/Button';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 
@@ -11,17 +9,23 @@ import { updateChart, createChartThunk } from './actions';
 const styles = {
     chartFormContainer: {
         marginTop: '30px',
+        marginLeft: '30px',
+        marginRight: '30px',
         display: 'flex',
         flexDirection: 'column' as const,
         justifyContent: 'center',
-        width: '80%',
+        alignItems: 'center',
+        width: '45%',
         backgroundColor: 'rgb(211, 238, 255)',
+        border: "2px solid rgb(157, 2, 8)",
+        borderRadius: "8px",
     },
     form: {
         minWidth: 120,
         display: 'flex',
         flexDirection: 'column' as const,
         justifyContent: 'center',
+        alignItems: 'center',
         width: '100%'
     }
 }
@@ -31,12 +35,12 @@ const ChartFormComponent = props => {
     const useStyles = makeStyles((theme: Theme) =>
         createStyles({
             button: {
-                backgroundColor: 'rgb(85, 57, 57)',
+                width: '35%',
+                backgroundColor: 'rgb(157, 2, 8)',
                 border: 'none',
                 color: 'white',
-                padding: '10px 20px',
-                textDecoration: 'none',
-                margin: '0 auto',
+                marginTop: '30px',
+                marginBottom: '30px',
                 cursor: 'pointer'
             }
         }),
@@ -50,8 +54,7 @@ const ChartFormComponent = props => {
         props.dispatch(updateChart({ [name]: newVal }));
     }
 
-    function handleSubmit(e) {
-        e.preventDefault();
+    function handleSubmit() {
         props.dispatch(createChartThunk(
             {
                 "drug": props.drugName,
@@ -66,8 +69,7 @@ const ChartFormComponent = props => {
     //type='submit on submit button for material ui form 
     return (
         <div style={styles.chartFormContainer}>
-            <form onSubmit={handleSubmit} style={styles.form}>
-
+            <div style={styles.form}>
                 <Selector
                     name='drugName'
                     label='Drug Name'
@@ -96,7 +98,9 @@ const ChartFormComponent = props => {
                     options={[
                         ['52', ' 52 weeks'],
                         ['104', '104 weeks'],
-                        ['156', '156 weeks']
+                        ['156', '156 weeks'],
+                        ['208', '208 weeks'],
+                        ['260', '260 weeks']
                     ]}
                 />
 
@@ -117,6 +121,8 @@ const ChartFormComponent = props => {
                     value={props.weeksToTrain}
                     handleChange={handleChange}
                     options={[
+                        ['52', ' 52 weeks'],
+                        ['104', '104 weeks'],
                         ['156', '156 weeks'],
                         ['208', '208 weeks']
                     ]}
@@ -135,20 +141,15 @@ const ChartFormComponent = props => {
 
                 <Button
                     className={classes.button}
-                    type="submit"
+                    onClick={handleSubmit}
                     variant="contained">
                     Generate Chart
                     </Button>
 
-            </form>
-
-            {props.showImage == "true"
-                ? <InnerHTML html={props.imageData} />
-                : null
-            }
+            </div >
         </div >
     );
-}
+};
 
 const mapStateToProps = state => {
     return {
