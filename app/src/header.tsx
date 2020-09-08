@@ -6,13 +6,13 @@ const styles = {
         display: 'flex',
         flexDirection: 'row' as const,
         justifyContent: 'center',
-        backgroundColor: 'rgb(255, 204, 153)',
+        backgroundColor: 'rgb(5,102,141)',
         height: '10%'
     },
     text: {
         fontSize: '75px',
         textShadow: '3px rgb(0, 0, 0)',
-        color: 'rgb(172, 68, 68)',
+        color: 'rgb(255, 255, 255)',
     }
 }
 

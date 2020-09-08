@@ -4,9 +4,8 @@
   "description": "rxtracker website frontend",
   "main": "index.js",
   "dependencies": {
+    "@material-ui/core": "^4.11.0",
     "@reduxjs/toolkit": "^1.4.0",
-    "@types/react": "^16.9.17",
-    "@types/react-dom": "^16.9.4",
     "clean-webpack-plugin": "^3.0.0",
     "css-loader": "^3.4.0",
     "dangerously-set-html-content": "^1.0.7",
@@ -15,13 +14,18 @@
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-redux": "^7.2.1",
+    "redux": "^4.0.5",
     "redux-thunk": "^2.3.0",
     "ts-loader": "^6.2.1",
     "typescript": "^3.7.4",
     "webpack": "^4.41.5",
     "webpack-cli": "^3.3.10"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "@types/react": "^16.9.49",
+    "@types/react-dom": "^16.9.8",
+    "@types/react-redux": "^7.1.9"
+  },
   "scripts": {
     "test": "test",
     "build": "webpack --config webpack.config.js"

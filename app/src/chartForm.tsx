@@ -1,46 +1,49 @@
 import React from 'react';
 import { connect } from 'react-redux'
 import InnerHTML from 'dangerously-set-html-content'
+import FormControl from '@material-ui/core/FormControl';
+import Button from '@material-ui/core/Button';
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 
 import Selector from './formSelectorComponent';
 import { updateChart, createChartThunk } from './actions';
 
 const styles = {
     chartFormContainer: {
+        marginTop: '30px',
         display: 'flex',
         flexDirection: 'column' as const,
         justifyContent: 'center',
         width: '80%',
-        backgroundColor: 'rgb(255, 204, 153)',
+        backgroundColor: 'rgb(211, 238, 255)',
     },
     form: {
+        minWidth: 120,
         display: 'flex',
         flexDirection: 'column' as const,
         justifyContent: 'center',
         width: '100%'
-    },
-    selector: {
-        width: '100%',
-        fontSize: '30px',
-        padding: '15px 10px',
-        margin: '0 auto',
-        display: 'inline-block',
-        border: '1px solid rgb(177, 67, 67)',
-        borderRadius: '4px',
-        boxSizing: 'border-box'
-    },
-    button: {
-        backgroundColor: 'rgb(85, 57, 57)',
-        border: 'none',
-        color: 'white',
-        padding: '10px 20px',
-        textDecoration: 'none',
-        margin: '0 auto',
-        cursor: 'pointer'
     }
 }
 
 const ChartFormComponent = props => {
+
+    const useStyles = makeStyles((theme: Theme) =>
+        createStyles({
+            button: {
+                backgroundColor: 'rgb(85, 57, 57)',
+                border: 'none',
+                color: 'white',
+                padding: '10px 20px',
+                textDecoration: 'none',
+                margin: '0 auto',
+                cursor: 'pointer'
+            }
+        }),
+    );
+
+    const classes = useStyles();
+
     function handleChange(e) {
         const name = e.target.name;
         const newVal = e.target.value;
@@ -60,21 +63,22 @@ const ChartFormComponent = props => {
             }
         ));
     }
-
+    //type='submit on submit button for material ui form 
     return (
         <div style={styles.chartFormContainer}>
-            <form style={styles.form} onSubmit={handleSubmit} >
+            <form onSubmit={handleSubmit} style={styles.form}>
+
                 <Selector
+                    name='drugName'
                     label='Drug Name'
-                    style={styles.selector}
                     value={props.drugName}
                     handleChange={handleChange}
                     options={[['vascepa', 'Vascepa'], ['drug1', 'Drug1']]}
                 />
 
                 <Selector
+                    name='chartType'
                     label='Chart Type'
-                    style={styles.selector}
                     value={props.chartType}
                     handleChange={handleChange}
                     options={[
@@ -85,8 +89,8 @@ const ChartFormComponent = props => {
                 />
 
                 <Selector
+                    name='numWeeks'
                     label='Number of Weeks'
-                    style={styles.selector}
                     value={props.numWeeks}
                     handleChange={handleChange}
                     options={[
@@ -97,8 +101,8 @@ const ChartFormComponent = props => {
                 />
 
                 <Selector
+                    name='predictBool'
                     label='Show Prediction'
-                    style={styles.selector}
                     value={props.predictBool}
                     handleChange={handleChange}
                     options={[
@@ -108,8 +112,8 @@ const ChartFormComponent = props => {
                 />
 
                 <Selector
+                    name='weeksToTrain'
                     label='Weeks to Train Prediction'
-                    style={styles.selector}
                     value={props.weeksToTrain}
                     handleChange={handleChange}
                     options={[
@@ -119,8 +123,8 @@ const ChartFormComponent = props => {
                 />
 
                 <Selector
+                    name='dataSource'
                     label='Data Source'
-                    style={styles.selector}
                     value={props.dataSource}
                     handleChange={handleChange}
                     options={[
@@ -129,11 +133,12 @@ const ChartFormComponent = props => {
                     ]}
                 />
 
-                <input
-                    style={styles.button}
+                <Button
+                    className={classes.button}
                     type="submit"
-                    value="Predict"
-                />
+                    variant="contained">
+                    Generate Chart
+                    </Button>
 
             </form>
 
