@@ -5,11 +5,13 @@ import {
 
 export const initialState = {
     drugName: 'vascepa',
-    chartType: 'graph_normalizedNRx',
-    numWeeks: '52',
+    numWeeks: '156',
+    chartType: 'graph_normalizedTRx',
+    scaleType: 'linear',
+    movingAverage: '0',
     predictBool: 'true',
-    weeksToTrain: '156',
-    dataSource: 'updated',
+    weeksToPredict: '52',
+    weeksToTrain: '104',
     showImage: "false",
     imageData: "",
     chartWidth: 8,

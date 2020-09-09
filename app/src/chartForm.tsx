@@ -5,7 +5,7 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 
 import Selector from './formSelectorComponent';
 import { updateChart, createChartThunk } from './actions';
-import Chart from './chart';
+import { useEffect } from 'react';
 
 const styles = {
     chartFormContainer: {
@@ -18,17 +18,23 @@ const styles = {
         alignItems: 'center',
         flexBasis: '95%',
         maxWidth: '500px',
-        backgroundColor: 'rgb(211, 238, 255)',
-        border: "2px solid rgb(157, 2, 8)",
-        borderRadius: "8px",
+        backgroundColor: 'rgb(240,248,255)',
+        border: "2px solid rgb(15,15,69)",
+        borderRadius: "10px",
     },
     form: {
-        minWidth: 120,
         display: 'flex',
         flexDirection: 'column' as const,
         justifyContent: 'center',
         alignItems: 'center',
         width: '100%'
+    },
+    label: {
+        fontSize: '30px',
+        fontFamily: 'Montserrat',
+        marginBottom: '3%',
+        marginTop: '3%',
+        textAlign: 'center' as const
     }
 }
 
@@ -38,12 +44,12 @@ const ChartFormComponent = props => {
         createStyles({
             button: {
                 width: '35%',
-                backgroundColor: 'rgb(157, 2, 8)',
+                backgroundColor: 'rgb(15,15,69)',
                 border: 'none',
                 color: 'white',
                 marginTop: '30px',
                 marginBottom: '30px',
-                cursor: 'pointer'
+                fontFamily: 'Montserrat'
             }
         }),
     );
@@ -56,47 +62,58 @@ const ChartFormComponent = props => {
         props.dispatch(updateChart({ [name]: newVal }));
     }
 
+    function parseChartType() {
+        var chartType = props.chartType.slice();
+
+        if (props.scaleType == 'log') {
+            return chartType + 'Log';
+        } else {
+            if (props.movingAverage != '0') {
+                return chartType.replace('normalized', props.movingAverage);
+            }
+            else {
+                return chartType
+            }
+        }
+    }
+
     function handleSubmit() {
+        const chartType = parseChartType();
+
         props.dispatch(createChartThunk(
             {
                 "drug": props.drugName,
-                "chartType": props.chartType,
                 "weeks": Number(props.numWeeks),
+                "chartType": chartType,
                 "predictBool": Boolean(props.predictBool),
-                "source": props.dataSource,
+                "source": 'updated',
+                "weeksToPredict": Number(props.weeksToPredict),
                 "weeksToTrainOn": Number(props.weeksToTrain),
                 "figWidth": Number(props.chartWidth),
                 "figHeight": Number(props.chartHeight)
             }
         ));
     }
-    //type='submit on submit button for material ui form 
+
+    useEffect(() => {
+        handleSubmit();
+    }, [])
+
     return (
         <div style={styles.chartFormContainer}>
             <div style={styles.form}>
+                <label style={styles.label}>Customize Your Chart</label>
                 <Selector
                     name='drugName'
                     label='Drug Name'
                     value={props.drugName}
                     handleChange={handleChange}
-                    options={[['vascepa', 'Vascepa'], ['drug1', 'Drug1']]}
-                />
-
-                <Selector
-                    name='chartType'
-                    label='Chart Type'
-                    value={props.chartType}
-                    handleChange={handleChange}
-                    options={[
-                        ['graph_normalizedTRx', 'Normalized Total Prescriptions'],
-                        ['graph_normalizedNRx', 'Normalized New Prescriptions'],
-                        ['graph_normalizedRRx', 'Normalized Refill Prescriptions']
-                    ]}
+                    options={[['vascepa', 'Vascepa']]}
                 />
 
                 <Selector
                     name='numWeeks'
-                    label='Number of Weeks'
+                    label='Number of Weeks to Display'
                     value={props.numWeeks}
                     handleChange={handleChange}
                     options={[
@@ -107,6 +124,45 @@ const ChartFormComponent = props => {
                         ['260', '260 weeks']
                     ]}
                 />
+
+                <Selector
+                    name='chartType'
+                    label='Prescription Type'
+                    value={props.chartType}
+                    handleChange={handleChange}
+                    options={[
+                        ['graph_normalizedTRx', 'Total Prescriptions'],
+                        ['graph_normalizedNRx', 'New Prescriptions'],
+                        ['graph_normalizedRRx', 'Refill Prescriptions']
+                    ]}
+                />
+
+                <Selector
+                    name='scaleType'
+                    label='Scale Type'
+                    value={props.scaleType}
+                    handleChange={handleChange}
+                    options={[
+                        ['linear', 'Linear Scale'],
+                        ['log', 'Logarithmic Scale'],
+                    ]}
+                />
+
+                {props.scaleType == 'linear'
+                    ? <Selector
+                        name='movingAverage'
+                        label='Moving Average'
+                        value={props.movingAverage}
+                        handleChange={handleChange}
+                        options={[
+                            ['0', 'No Moving Average'],
+                            ['fourWeekMA', 'Four Week Moving Average'],
+                            ['eightWeekMA', 'Eight Week Moving Average'],
+                            ['thirteenWeekMA', 'Thirteen Week Moving Average'],
+                        ]}
+                    />
+                    : null
+                }
 
                 <Selector
                     name='predictBool'
@@ -120,6 +176,19 @@ const ChartFormComponent = props => {
                 />
 
                 <Selector
+                    name='weeksToPredict'
+                    label='Number of Weeks to Predict '
+                    value={props.weeksToPredict}
+                    handleChange={handleChange}
+                    options={[
+                        ['26', '26 weeks'],
+                        ['52', '52 weeks'],
+                        ['78', '78 weeks'],
+                        ['104', '104 weeks']
+                    ]}
+                />
+
+                <Selector
                     name='weeksToTrain'
                     label='Weeks to Train Prediction'
                     value={props.weeksToTrain}
@@ -129,17 +198,6 @@ const ChartFormComponent = props => {
                         ['104', '104 weeks'],
                         ['156', '156 weeks'],
                         ['208', '208 weeks']
-                    ]}
-                />
-
-                <Selector
-                    name='dataSource'
-                    label='Data Source'
-                    value={props.dataSource}
-                    handleChange={handleChange}
-                    options={[
-                        ['updated', 'Updated'],
-                        ['raw', 'Raw']
                     ]}
                 />
 
@@ -158,11 +216,13 @@ const ChartFormComponent = props => {
 const mapStateToProps = state => {
     return {
         drugName: state.chart.drugName,
-        chartType: state.chart.chartType,
         numWeeks: state.chart.numWeeks,
+        chartType: state.chart.chartType,
+        scaleType: state.chart.scaleType,
+        movingAverage: state.chart.movingAverage,
         predictBool: state.chart.predictBool,
+        weeksToPredict: state.chart.weeksToPredict,
         weeksToTrain: state.chart.weeksToTrain,
-        dataSource: state.chart.dataSource,
         showImage: state.chart.showImage,
         imageData: state.chart.imageData,
         chartWidth: state.chart.chartWidth,

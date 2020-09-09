@@ -16,9 +16,9 @@ const styles = {
         alignItems: 'center',
         flexBasis: '95%',
         maxWidth: '1050px',
-        backgroundColor: 'rgb(211, 238, 255)',
-        border: "2px solid rgb(157, 2, 8)",
-        borderRadius: "8px",
+        backgroundColor: 'rgb(240,248,255)',
+        border: "2px solid rgb(15,15,69)",
+        borderRadius: "10px",
     }
 }
 
@@ -43,12 +43,6 @@ const ChartComponent = props => {
 
 const mapStateToProps = state => {
     return {
-        drugName: state.chart.drugName,
-        chartType: state.chart.chartType,
-        numWeeks: state.chart.numWeeks,
-        predictBool: state.chart.predictBool,
-        weeksToTrain: state.chart.weeksToTrain,
-        dataSource: state.chart.dataSource,
         showImage: state.chart.showImage,
         imageData: state.chart.imageData,
         chartWidth: state.chart.chartWidth,

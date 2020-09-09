@@ -19,14 +19,13 @@ const styles = {
     },
     body: {
         display: 'flex',
-        flex: 1,
         flexWrap: 'wrap' as const,
         flexDirection: 'row' as const,
         alignItems: 'center',
         justifyContent: 'center',
         width: '100%',
-        height: '85%',
-        marginTop: '3%'
+        height: '80%',
+        marginTop: '5%'
     }
 }
 

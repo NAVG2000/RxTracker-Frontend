@@ -5,16 +5,18 @@ const styles = {
         width: '100%',
         display: 'flex',
         flexDirection: 'row' as const,
-        justifyContent: 'center',
-        backgroundColor: 'rgb(5,102,141)',
-        height: '15%',
+        //justifyContent: 'center',
+        backgroundColor: 'rgb(15,15,69)',
+        height: '20%',
+        paddingLeft: '15%'
     },
     text: {
-        fontSize: '75px',
+        fontSize: '125px',
+        fontFamily: 'Cormorant',
         textShadow: '3px rgb(0, 0, 0)',
         color: 'rgb(255, 255, 255)',
-        paddingTop: '15px',
-        paddingBottom: '15px'
+        paddingTop: '25px',
+        paddingBottom: '25px'
     }
 }
 

@@ -8,12 +8,12 @@ const styles = {
         width: "90%",
         display: 'flex',
         flexDirection: 'column' as const,
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginTop: '1%'
+        //alignItems: 'center',
+        marginTop: '3%'
     },
     label: {
-        fontSize: '20px'
+        fontSize: '20px',
+        fontFamily: 'Montserrat'
     }
 }
 
@@ -23,13 +23,13 @@ const Selector = props => {
         createStyles({
             select: {
                 marginTop: '1%',
-                marginBottom: '1%',
-                border: '1px solid rgb(177, 67, 67)',
+                border: '1px solid rgb(15,15,69)',
                 borderRadius: '4px',
                 backgroundColor: 'rgb(255, 255, 255)',
                 textAlign: 'center' as const,
-                width: '100%'
-            },
+                width: '100%',
+                fontFamily: 'Montserrat'
+            }
         }),
     );
 
