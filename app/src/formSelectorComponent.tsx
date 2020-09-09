@@ -5,7 +5,7 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 
 const styles = {
     formSelector: {
-        width: "80%",
+        width: "90%",
         display: 'flex',
         flexDirection: 'column' as const,
         justifyContent: 'center',

@@ -11,13 +11,13 @@ const styles = {
     chartFormContainer: {
         marginLeft: '3%',
         marginRight: '2%',
-        marginBottom: '2%',
+        marginBottom: '3%',
         display: 'flex',
         flexDirection: 'column' as const,
         justifyContent: 'center',
         alignItems: 'center',
-        width: '45%',
-        maxWidth: '600px',
+        flexBasis: '95%',
+        maxWidth: '500px',
         backgroundColor: 'rgb(211, 238, 255)',
         border: "2px solid rgb(157, 2, 8)",
         borderRadius: "8px",
@@ -57,7 +57,6 @@ const ChartFormComponent = props => {
     }
 
     function handleSubmit() {
-        console.log(Number(props.chartWidth), Number(props.chartHeight))
         props.dispatch(createChartThunk(
             {
                 "drug": props.drugName,
