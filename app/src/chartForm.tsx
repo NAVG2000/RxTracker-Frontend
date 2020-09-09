@@ -85,7 +85,7 @@ const ChartFormComponent = props => {
                 "drug": props.drugName,
                 "weeks": Number(props.numWeeks),
                 "chartType": chartType,
-                "predictBool": Boolean(props.predictBool),
+                "predictBool": props.predictBool == 'true',
                 "source": 'updated',
                 "weeksToPredict": Number(props.weeksToPredict),
                 "weeksToTrainOn": Number(props.weeksToTrain),

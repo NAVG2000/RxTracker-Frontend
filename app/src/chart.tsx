@@ -43,6 +43,14 @@ const ChartComponent = props => {
 
 const mapStateToProps = state => {
     return {
+        drugName: state.chart.drugName,
+        numWeeks: state.chart.numWeeks,
+        chartType: state.chart.chartType,
+        scaleType: state.chart.scaleType,
+        movingAverage: state.chart.movingAverage,
+        predictBool: state.chart.predictBool,
+        weeksToPredict: state.chart.weeksToPredict,
+        weeksToTrain: state.chart.weeksToTrain,
         showImage: state.chart.showImage,
         imageData: state.chart.imageData,
         chartWidth: state.chart.chartWidth,
