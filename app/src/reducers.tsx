@@ -11,7 +11,9 @@ export const initialState = {
     weeksToTrain: '156',
     dataSource: 'updated',
     showImage: "false",
-    imageData: ""
+    imageData: "",
+    chartWidth: 8,
+    chartHeight: 4.5
 }
 
 function chartReducer(state = initialState, action) {

@@ -5,17 +5,19 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 
 import Selector from './formSelectorComponent';
 import { updateChart, createChartThunk } from './actions';
+import Chart from './chart';
 
 const styles = {
     chartFormContainer: {
-        marginTop: '30px',
-        marginLeft: '30px',
-        marginRight: '30px',
+        marginLeft: '3%',
+        marginRight: '2%',
+        marginBottom: '2%',
         display: 'flex',
         flexDirection: 'column' as const,
         justifyContent: 'center',
         alignItems: 'center',
         width: '45%',
+        maxWidth: '600px',
         backgroundColor: 'rgb(211, 238, 255)',
         border: "2px solid rgb(157, 2, 8)",
         borderRadius: "8px",
@@ -55,6 +57,7 @@ const ChartFormComponent = props => {
     }
 
     function handleSubmit() {
+        console.log(Number(props.chartWidth), Number(props.chartHeight))
         props.dispatch(createChartThunk(
             {
                 "drug": props.drugName,
@@ -62,7 +65,9 @@ const ChartFormComponent = props => {
                 "weeks": Number(props.numWeeks),
                 "predictBool": Boolean(props.predictBool),
                 "source": props.dataSource,
-                "weeksToTrainOn": Number(props.weeksToTrain)
+                "weeksToTrainOn": Number(props.weeksToTrain),
+                "figWidth": Number(props.chartWidth),
+                "figHeight": Number(props.chartHeight)
             }
         ));
     }
@@ -160,7 +165,9 @@ const mapStateToProps = state => {
         weeksToTrain: state.chart.weeksToTrain,
         dataSource: state.chart.dataSource,
         showImage: state.chart.showImage,
-        imageData: state.chart.imageData
+        imageData: state.chart.imageData,
+        chartWidth: state.chart.chartWidth,
+        chartHeight: state.chart.chartHeight
     }
 }
 

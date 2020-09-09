@@ -10,7 +10,7 @@ const styles = {
         flexDirection: 'column' as const,
         justifyContent: 'center',
         alignItems: 'center',
-        marginTop: '15px'
+        marginTop: '1%'
     },
     label: {
         fontSize: '20px'
@@ -22,8 +22,8 @@ const Selector = props => {
     const useStyles = makeStyles((theme: Theme) =>
         createStyles({
             select: {
-                marginTop: '15px',
-                marginBottom: '15px',
+                marginTop: '1%',
+                marginBottom: '1%',
                 border: '1px solid rgb(177, 67, 67)',
                 borderRadius: '4px',
                 backgroundColor: 'rgb(255, 255, 255)',

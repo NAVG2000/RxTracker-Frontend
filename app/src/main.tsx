@@ -15,16 +15,18 @@ const styles = {
         flexDirection: 'column' as const,
         alignItems: 'center',
         width: '100%',
-        height: '100%',
+        height: '100%'
     },
     body: {
         display: 'flex',
         flex: 1,
+        flexWrap: 'wrap' as const,
         flexDirection: 'row' as const,
         alignItems: 'center',
         justifyContent: 'center',
         width: '100%',
-        height: '90%',
+        height: '85%',
+        marginTop: '3%'
     }
 }
 
