@@ -19,6 +19,16 @@ const styles = {
         backgroundColor: 'rgb(240,248,255)',
         border: "2px solid rgb(15,15,69)",
         borderRadius: "10px",
+    },
+    placeholder: {
+        width: "100%",
+        paddingBottom: '56.25%'
+    },
+    label: {
+        fontSize: '40px',
+        fontFamily: 'Montserrat',
+        color: 'rgb(128,128,128)',
+        textAlign: 'center' as const
     }
 }
 
@@ -35,7 +45,10 @@ const ChartComponent = props => {
         <div style={styles.chartContainer} ref={ref}>
             {props.showImage == "true"
                 ? <InnerHTML html={props.imageData} />
-                : <div style={{ width: "100%", paddingBottom: '56.25%' }}></div>
+                : <div>
+                    <label style={styles.label}>Your Chart will Appear Here When Generated</label>
+                    <div style={styles.placeholder}></div>
+                </div>
             }
         </div>
     );

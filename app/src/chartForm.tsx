@@ -95,9 +95,11 @@ const ChartFormComponent = props => {
         ));
     }
 
+    /* implement auto refresh here:
     useEffect(() => {
         handleSubmit();
     }, [])
+    */
 
     return (
         <div style={styles.chartFormContainer}>
